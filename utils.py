@@ -7,4 +7,4 @@ def hex2base64(hexstr):
   
 def xor_hexstr(hexstr1, hexstr2):
   '''Takes 2 hex strings and XORs them - returns hex string'''
-  return ''.join(["%02x"%(x[0]^x[1]) for x in zip(binascii.unhexlify(s1), binascii.unhexlify(s2))])
+  return ''.join(["%02x"%(x[0]^x[1]) for x in zip(binascii.unhexlify(hexstr1), binascii.unhexlify(hexstr2))])
