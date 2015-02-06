@@ -1,5 +1,6 @@
 import binascii
 import base64
+import math
 
 def hex2base64(hexstr):
   '''Takes hex string - returns base64 encoded binary string'''
