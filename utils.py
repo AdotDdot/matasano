@@ -24,6 +24,8 @@ def bruteforce_single_char(hexstr):
     
 def calc_freq_distr(binstr):
     '''Takes binary string - returns dict letter:freq-percent'''
+    #discard strings that containunprintable characters or don't cointain spaces
+    if not (all([i >= 32 and i < 127 for i in binstr]) and 32 in binstr): return {} 
     freqs = {}
     procstr = ''.join([chr(l).lower() for l in binstr if chr(l) in string.ascii_letters])
     n = len(procstr)
@@ -33,7 +35,8 @@ def calc_freq_distr(binstr):
     return freqs
   
 def process_freqs(freqs): #work in progress
-  '''Process frequency dictionaries - calculate some indicators [?]'''
+    '''Process frequency dictionaries - calculate some indicators [?]'''
+    if not freqs: return 0 #check needed?
     devs = []    
     for i in freqs:
         if i=="*": continue
@@ -41,12 +44,6 @@ def process_freqs(freqs): #work in progress
         eng = eng_freqs[i]
         dev = abs(curr-eng)
         devs.append(dev)
-    try:
-        #some possible indicators
-        mean_dev = sum(devs)/len(devs)
-        mean_square_dev = sum([d**2 for d in devs])/len(devs)
-        mean_square_root_dev = math.sqrt(mean_square_dev)
-    except ZeroDivisionError:
-        continue
-    ...
+        variance = sum([d**2 for d in devs])/len(devs)
+     ...
     
