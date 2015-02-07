@@ -1,6 +1,6 @@
 import binascii
 import base64
-import math
+import string
 
 eng_freqs = { 'a': 8.167, 'b': 1.492, 'c': 2.782, 'd': 4.253, 'e': 12.702, 'f': 2.228, 'g': 2.015,
           'h': 6.094, 'i': 6.966, 'j': 0.153, 'k': 0.772, 'l': 4.025, 'm': 2.406, 'n': 6.749, 'o': 7.507,
@@ -19,7 +19,7 @@ def bruteforce_single_char(hexstr):
     u = {}
     for i in range(32, 127):
         key = binascii.hexlify((chr(i)*len(hexstr)).encode("ascii"))
-        u[chr(i)] = binascii.unhexlify(xor_hexstr(hexstr, k))
+        u[chr(i)] = binascii.unhexlify(xor_hexstr(hexstr, key))
     return u
     
 def calc_freq_distr(binstr):
@@ -35,7 +35,7 @@ def calc_freq_distr(binstr):
   
 def process_freq(freqs): #work in progress
     '''Takes frequency dict - returns variance calculated on deviations from English letter frequency'''
-    if not freqs: return 0 #check needed?
+    if not freqs: return -1
     devs = [] 
     for i in freqs:
         curr = freqs[i]
