@@ -7,8 +7,8 @@ def ch1():
   #>>> b'SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t'
   
 def ch2():
-  '''Challenge 2 - Fixed XOR
-  Write a function that takes two equal-length buffers and produces their XOR combination'''
+  '''Challenge 2 - Fixed XOR'''
+  #Write a function that takes two equal-length buffers and produces their XOR combination'''
   s1 = "1c0111001f010100061a024b53535009181c"
   s2 = "686974207468652062756c6c277320657965"
   return utils.xor_hexstr(s1, s2)
@@ -16,7 +16,7 @@ def ch2():
   #unhexlified b"the kid don't play"
   
 def ch3():
-  '''Single-byte XOR cipher'''
+  '''Challenge 3 - Single-byte XOR cipher'''
   #Among all possible decrypted strings, returns the one that has all printable characters, contains 
   #at least one space and has the least variance from English letter frequency
   s = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
