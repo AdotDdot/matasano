@@ -33,7 +33,7 @@ def calc_freq_distr(binstr):
         if i not in freqs: freqs[i] = procstr.count(i)/n*100
     return freqs
   
-def process_freq(freqs): #work in progress
+def process_freq(freqs): 
     '''Takes frequency dict - returns variance calculated on deviations from English letter frequency'''
     if not freqs: return -1
     devs = [] 
