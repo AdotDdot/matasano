@@ -16,14 +16,16 @@ def ch2():
   #unhexlified b"the kid don't play"
   
 def ch3():
-  '''Single-byte XOR cipher''''
+  '''Single-byte XOR cipher'''
   #Among all possible decrypted strings, returns the one that has all printable characters, contains 
   #at least one space and has the least variance from English letter frequency
   s = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
   poss_decrypts = utils.bruteforce_single_char(s)
   variances = {}
   for d in poss_decrypts:
-    variance = utils.process_freq(utils2.calc_freq_distr(poss_decrypts[d]))
-    if variance >= 0: variances[variance] = poss_decrypts[d]
+    binstr = poss_decrypts[d]
+    if utils.is_legit_str(binstr): 
+      variance = utils.process_freq(utils.calc_freq_distr(binstr))
+      if variance >= 0: variances[variance] = binstr
   return variances[sorted(variances)[0]]
   #>>> b"Cooking MC's like a pound of bacon"
