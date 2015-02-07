@@ -22,10 +22,12 @@ def bruteforce_single_char(hexstr):
         u[chr(i)] = binascii.unhexlify(xor_hexstr(hexstr, key))
     return u
     
+def is_legit_str(binstr):
+    '''Return true if string doesn't contain unnprintable characters and cointains spaces'''
+    if all([i >= 32 and i < 127 for i in binstr]) and 32 in binstr: return True
+    
 def calc_freq_distr(binstr):
     '''Takes binary string - returns dict letter:freq-percent'''
-    #discard strings that containunprintable characters or don't cointain spaces
-    if not (all([i >= 32 and i < 127 for i in binstr]) and 32 in binstr): return {} 
     freqs = {}
     procstr = ''.join([chr(l).lower() for l in binstr if chr(l) in string.ascii_letters])
     n = len(procstr)
