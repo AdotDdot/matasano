@@ -31,7 +31,6 @@ def calc_freq_distr(binstr):
     n = len(procstr)
     for i in procstr:
         if i not in freqs: freqs[i] = procstr.count(i)/n*100
-    freqs["*"] = len(procstr)/len(binstr)*100 #ascii letters to non-ascii letters ratio
     return freqs
   
 def process_freq(freqs): #work in progress
@@ -39,7 +38,6 @@ def process_freq(freqs): #work in progress
     if not freqs: return 0 #check needed?
     devs = [] 
     for i in freqs:
-        if i=="*": continue
         curr = freqs[i]
         eng = eng_freqs[i]
         dev = abs(curr-eng)
