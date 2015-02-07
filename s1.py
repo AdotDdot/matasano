@@ -17,6 +17,8 @@ def ch2():
   
 def ch3():
   '''Single-byte XOR cipher''''
+  #Among all possible decrypted strings, returns the one that has all printable characters, contains 
+  #at least one space and has the least variance from English letter frequency
   s = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
   poss_decrypts = utils.bruteforce_single_char(s)
   variances = {}
