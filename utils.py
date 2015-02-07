@@ -34,16 +34,17 @@ def calc_freq_distr(binstr):
     freqs["*"] = len(procstr)/len(binstr)*100 #ascii letters to non-ascii letters ratio
     return freqs
   
-def process_freqs(freqs): #work in progress
-    '''Process frequency dictionaries - calculate some indicators [?]'''
+def process_freq(freqs): #work in progress
+    '''Takes frequency dict - returns variance calculated on deviations from English letter frequency'''
     if not freqs: return 0 #check needed?
-    devs = []    
+    devs = [] 
     for i in freqs:
         if i=="*": continue
         curr = freqs[i]
         eng = eng_freqs[i]
         dev = abs(curr-eng)
         devs.append(dev)
-        variance = sum([d**2 for d in devs])/len(devs)
-     ...
+    return sum([d**2 for d in devs])/len(devs)
+   
+    
     
