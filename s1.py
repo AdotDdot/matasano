@@ -8,24 +8,40 @@ def ch1():
   
 def ch2():
   '''Challenge 2 - Fixed XOR'''
-  #Write a function that takes two equal-length buffers and produces their XOR combination'''
+  #"Write a function that takes two equal-length buffers and produces their XOR combination"
   s1 = "1c0111001f010100061a024b53535009181c"
   s2 = "686974207468652062756c6c277320657965"
   return utils.xor_hexstr(s1, s2)
   #>>> b'746865206b696420646f6e277420706c6179' 
   #unhexlified b"the kid don't play"
   
-def ch3():
+def ch3(s = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"):
   '''Challenge 3 - Single-byte XOR cipher'''
-  #Among all possible decrypted strings, returns the one that has all printable characters, contains 
-  #at least one space and has the least variance from English letter frequency
-  s = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+  #Among all possible decryptions, choose the one with the best score
   poss_decrypts = utils.bruteforce_single_char(s)
-  variances = {}
-  for d in poss_decrypts:
-    binstr = poss_decrypts[d]
-    if utils.is_legit_str(binstr): 
-      variance = utils.process_freq(utils.calc_freq_distr(binstr))
-      if variance >= 0: variances[variance] = binstr
-  return variances[sorted(variances)[0]]
+  scores = {}
+  for binstr in poss_decrypts:
+    score = utils.calc_lett_ratio(binstr)
+    if score > 0: scores[score] = binstr
+  best_score = sorted(scores)[-1]
+  text = scores[best_score]
+  return (text, best_score)
   #>>> b"Cooking MC's like a pound of bacon"
+  
+def ch4():
+  '''Detect single-character XOR'''
+  #Apply ch3 to all strings. Among the best-scoring lines of each 
+  #string, return the one with the best score (text and line number)
+  lines = open("4.txt").readlines()
+  score_line = {}
+  line_text = {}
+  line = 0
+  for l in lines:
+      text, score = ch3(l.strip())
+      score_line[score] = line
+      line_text[line] = text
+      line += 1
+  best_score_line = score_line[sorted(score_line)[-1]]
+  return line_text[best_score_line], best_score_line
+  #>>> b'Now that the party is jumping\n', 170
+
