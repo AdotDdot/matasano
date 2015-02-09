@@ -29,4 +29,11 @@ def rep_key_xor(binpt, binkey):
   exp_key = binkey * int(len(binpt)/len(binkey)) +  binkey[:len(binpt)%len(binkey)]
   return xor_hexstr(binascii.hexlify(binpt), binascii.hexlify(exp_key))
   
+def hamming_distance(binstr1, binstr2):
+  '''Takes 2 binary strings - returns hamming distance'''
+  hd = 0
+  for z in zip(binstr1, binstr2):
+    hd += bin(z[0]^z[1]).count("1")
+  return hd
+  
     
