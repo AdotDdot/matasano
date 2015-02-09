@@ -45,3 +45,9 @@ def ch4():
   return line_text[best_score_line], best_score_line
   #>>> b'Now that the party is jumping\n', 170
 
+def ch5():
+  '''Implement repeating-key XOR'''
+  pt = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
+  k = "ICE"
+  return utils.rep_key_xor(pt.encode("ascii"), k.encode("ascii"))
+  #>>> b'0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f2044490c69242a69203728393c69342d2c2d6500632d2c22376922652a3a282b2229'
