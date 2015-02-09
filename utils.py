@@ -23,4 +23,10 @@ def calc_lett_ratio(binstr):
   check = string.ascii_letters + ' '
   lettstr = ''.join([chr(c) for c in binstr if chr(c) in check])
   return len(lettstr)/len(binstr)
+  
+def rep_key_xor(binpt, binkey):
+  '''Takes 2 binary strings (plaintext and key) - returns hex binary string'''
+  exp_key = binkey * int(len(binpt)/len(binkey)) +  binkey[:len(binpt)%len(binkey)]
+  return xor_hexstr(binascii.hexlify(binpt), binascii.hexlify(exp_key))
+  
     
