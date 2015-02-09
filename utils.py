@@ -35,5 +35,6 @@ def hamming_distance(binstr1, binstr2):
   for z in zip(binstr1, binstr2):
     hd += bin(z[0]^z[1]).count("1")
   return hd
-  
+  # hamming_distance(b'this is a test', b'wokka wokka!!!')
+  #>>> 37
     
