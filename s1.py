@@ -20,16 +20,20 @@ def ch3(s = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b373
   #Among all possible decryptions, choose the one with the best score
   poss_decrypts = utils.bruteforce_single_char(s)
   scores = {}
-  for binstr in poss_decrypts:
+  map_keys = {}
+  for d in poss_decrypts:
+    binstr = poss_decrypts[d]
     score = utils.calc_lett_ratio(binstr)
-    if score > 0: scores[score] = binstr
+    if score > 0: 
+      scores[score] = binstr
+      map_keys[score] = d
   best_score = sorted(scores)[-1]
   text = scores[best_score]
-  return (text, best_score)
+  return {"text": text, "score": best_score, "key": map_keys[best_score]}
   #>>> b"Cooking MC's like a pound of bacon"
   
 def ch4():
-  '''Detect single-character XOR'''
+  '''Challenge 4 - Detect single-character XOR'''
   #Apply ch3 to all strings. Among the best-scoring lines of each 
   #string, return the one with the best score (text and line number)
   lines = open("4.txt").readlines()
@@ -37,7 +41,8 @@ def ch4():
   line_text = {}
   line = 0
   for l in lines:
-      text, score = ch3(l.strip())
+      results = ch3(l.strip())
+      text, score = results["text"], results["score"]
       score_line[score] = line
       line_text[line] = text
       line += 1
@@ -46,7 +51,7 @@ def ch4():
   #>>> b'Now that the party is jumping\n', 170
 
 def ch5():
-  '''Implement repeating-key XOR'''
+  '''Challenge 5 - Implement repeating-key XOR'''
   pt = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
   k = "ICE"
   return utils.rep_key_xor(pt.encode("ascii"), k.encode("ascii"))
