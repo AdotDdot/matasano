@@ -12,10 +12,10 @@ def xor_hexstr(hexstr1, hexstr2):
   
 def bruteforce_single_char(hexstr):
   '''Takes hex string - XORs it with all printable characters incl. extended ascii- returns all possible decryptions'''
-  u = []
+  u = {}
   for i in range(256):
     key = ''.join([str(hex(i))[2:] for j in range(len(hexstr))]).encode("ascii")
-    u.append(binascii.unhexlify(xor_hexstr(hexstr, key)))
+    u[chr(i)] = binascii.unhexlify(xor_hexstr(hexstr, key))
   return u
     
 def calc_lett_ratio(binstr):
