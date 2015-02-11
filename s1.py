@@ -56,3 +56,25 @@ def ch5():
   k = "ICE"
   return utils.rep_key_xor(pt.encode("ascii"), k.encode("ascii"))
   #>>> b'0b3637272a2b2e63622c2e69692a23693a2a3c6324202d623d63343c2a26226324272765272a282b2f2044490c69242a69203728393c69342d2c2d6500632d2c22376922652a3a282b2229'
+
+def ch6():
+  '''Challenge 6 - Break repeating-key XOR'''
+  map_pts = {}
+  map_keys = {}
+  binstr = b64decode(open("6.txt").read())
+  ksizes = utils.find_ksizes(binstr) #tuple
+  print(ksizes)
+  for k in ksizes:
+    key = b''
+    blocks = utils.transpose_blocks(utils.split_blocks(binstr, k))
+    for s in blocks:
+      key_byte = ch3(hexlify(s))["key"].encode("ascii")
+      key += key_byte
+    pt = unhexlify(ch5(binstr, key))
+    score = utils.calc_lett_ratio(pt)
+    map_pts[score] = pt
+    map_keys[score] = key
+  best_score = sorted(map_pts)[-1]
+  return map_keys[best_score], map_pts[best_score]
+  #>>> key: b'Terminator X: Bring the noiseTerminator X: Bring the noiseTerminator X: Bring the noise'
+  #>>> plaintext: Vanilla Ice - Play That Funky Music Lyrics
