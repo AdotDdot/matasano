@@ -1,4 +1,6 @@
 import utils
+from base64 import b64decode
+from binascii import hexlify, unhexlify
 
 def ch1():
   '''Challenge 1 - Convert hex to base64'''
