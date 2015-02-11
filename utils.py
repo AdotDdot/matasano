@@ -37,4 +37,31 @@ def hamming_distance(binstr1, binstr2):
   return hd
   # hamming_distance(b'this is a test', b'wokka wokka!!!')
   #>>> 37
+  
+def find_ksizes(binstr):
+  '''Takes binary string - returns 5 most likely key sizes'''
+  dists = {}
+  for k in range(2, 41):
+    m = sum( [ hamming_distance(binstr[:n*k], binstr[n*k:2*n*k]) for n in range(1, 11)] )//10
+    dists[k] = m
+  return [v[1] for v in sorted(dists.items(), key=operator.itemgetter(1))[:5]]
+
+def split_blocks(binstr, k):
+  '''Takes hex string - returns blocks of length k'''
+  blocks = []
+  while binstr:
+    block, binstr = binstr[:k], binstr[k:]
+    blocks.append(block)
+  return blocks
+
+def transpose_blocks(blocks):
+  '''Takes blocks of binary strings - returns transposed blocks'''
+  newblocks = []
+  for i in range(len(blocks[0])):
+    newblock = []
+    for block in blocks:
+      try: newblock.append(block[i])
+      except IndexError: continue
+      newblocks.append(''.join(["%c"%n for n in newblock]).encode("ascii"))
+  return newblocks
     
